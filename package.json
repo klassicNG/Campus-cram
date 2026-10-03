@@ -49,6 +49,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "export:web": "expo export --platform web && node ./scripts/patch-pwa.js",
     "lint": "expo lint"
   },
   "private": true

@@ -1,0 +1,25 @@
+# Project: Campus-Cram (Mobile App)
+# Stack: React Native, Expo, NativeWind (Tailwind), Reanimated, Moti, Supabase
+
+## 1. UI & Aesthetic Rules (Strict)
+- **Vibe:** Clean, modern, glassmorphic, Apple-native elegance. Do NOT use heavy, solid colors.
+- **Components:** Favor `expo-blur` for backgrounds, bottom sheets, and sticky headers.
+- **Styling:** Use NativeWind. Borders should be subtle (`border-white/10` or `border-black/5`). Shadows should be soft and diffuse.
+- **Motion:** All state transitions, layout changes, and list renderings MUST be wrapped in `Moti` or `Reanimated` for buttery smooth 60fps animations.
+- **Typography:** Use a clean sans-serif (Inter or system default). High contrast for readability.
+
+## 2. Coding Standards
+- Strictly use functional components and React Hooks.
+- Use TypeScript for everything. Define strict interfaces for Supabase database rows and API responses.
+- Keep components modular. If a file exceeds 150 lines, abstract the UI components into a `components/` folder.
+- No dummy text (Lorem Ipsum) in UI previews. Use realistic mock data (e.g., Computer Science exam questions).
+
+## 3. Core Features Architecture Context
+- **E-Exam:** Supports "Haptic Mode" (immediate feedback) and "Normal Mode" (deferred feedback). 
+- **Theory Scanner:** Will utilize device camera to capture handwriting, sent to a multimodal AI (Gemini) for OCR and grading against course materials.
+- **Cram Sheet:** Markdown-rendered cheat sheets converted into swipeable flashcards.
+- **Clutch Mode:** A high-contrast, distraction-free global state toggle for <24h cramming.
+
+## 4. State & Data
+- Use Zustand for global state management (e.g., user preferences, Clutch Mode toggle).
+- Supabase for Auth, PostgreSQL (storing past questions and AI Trainer styles), and Storage (PDFs/Images).

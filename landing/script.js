@@ -319,15 +319,31 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --------------------------------------------------------------------------
-  // 4. Modals (Installation Walkthrough & QR Code)
+  // 4. Modals (Installation Walkthrough & QR Code) & Smooth Nav
   // --------------------------------------------------------------------------
   const qrModal = document.getElementById('qrModal');
   const installModal = document.getElementById('installModal');
 
   const openQrBtns = document.querySelectorAll('.open-qr-trigger');
   const openInstallBtns = document.querySelectorAll('.open-install-trigger');
+  const openInstallModalBtns = document.querySelectorAll('.open-install-modal-trigger');
   const modalCloseBtns = document.querySelectorAll('.modal-close-btn');
 
+  // Smooth scroll to install guide and highlight it
+  openInstallBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById('install-guide');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.classList.remove('section-highlight');
+        void target.offsetWidth; // trigger reflow
+        target.classList.add('section-highlight');
+      }
+    });
+  });
+
+  // Open QR modal
   openQrBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -335,13 +351,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  openInstallBtns.forEach(btn => {
+  // Open install walkthrough modal
+  openInstallModalBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       if (installModal) installModal.classList.add('active');
     });
   });
 
+  // Close modals
   modalCloseBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       if (qrModal) qrModal.classList.remove('active');
@@ -358,6 +376,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
+  });
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (qrModal) qrModal.classList.remove('active');
+      if (installModal) installModal.classList.remove('active');
+    }
+  });
+
+  // Copy Download Link to Clipboard
+  const copyLinkBtns = document.querySelectorAll('.copy-link-btn');
+  copyLinkBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const url = btn.dataset.url || 'https://github.com/klassicNG/Campus-cram/releases/latest';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          showToast('Direct download link copied to clipboard! 📋');
+        }).catch(() => {
+          showToast('Link: ' + url);
+        });
+      } else {
+        showToast('Link: ' + url);
+      }
+    });
   });
 
   // --------------------------------------------------------------------------

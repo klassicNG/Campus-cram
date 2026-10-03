@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MotiView } from 'moti';
+import Animated, { FadeInDown, FadeInUp, FadeIn } from 'react-native-reanimated';
 import { BlurView } from 'expo-blur';
 import { useRouter } from 'expo-router';
 import { Shield, ArrowRight, Command, Sparkles } from 'lucide-react-native';
@@ -29,10 +29,8 @@ export default function LoginScreen() {
 
       <SafeAreaView className="flex-1 justify-between px-7 pt-8 pb-8 z-10">
         {/* Top Brand Bar */}
-        <MotiView
-          from={{ opacity: 0, translateY: -10 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'timing', duration: 500 }}
+        <Animated.View
+          entering={FadeInDown.duration(500)}
           className="flex-row items-center justify-between"
         >
           <View className="flex-row items-center space-x-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
@@ -43,16 +41,14 @@ export default function LoginScreen() {
           </View>
 
           <View className="bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full">
-            <Text className="text-zinc-400 text-[11px] font-medium">v1.0 iOS</Text>
+            <Text className="text-zinc-400 text-[11px] font-medium">v1.0 Android</Text>
           </View>
-        </MotiView>
+        </Animated.View>
 
         {/* Hero Section */}
         <View className="my-auto">
-          <MotiView
-            from={{ opacity: 0, translateY: 15 }}
-            animate={{ opacity: 1, translateY: 0 }}
-            transition={{ type: 'timing', duration: 600, delay: 100 }}
+          <Animated.View
+            entering={FadeInUp.delay(100).duration(600)}
             className="items-center mb-10"
           >
             <View className="w-20 h-20 rounded-full bg-white/5 border border-white/10 items-center justify-center mb-6 shadow-lg">
@@ -65,13 +61,11 @@ export default function LoginScreen() {
             <Text className="text-zinc-400 text-sm text-center max-w-[290px] leading-6 font-normal">
               High-yield academic intelligence, optimized for modern student cram sessions.
             </Text>
-          </MotiView>
+          </Animated.View>
 
           {/* Refined Frosted Glass Auth Card */}
-          <MotiView
-            from={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: 'timing', duration: 600, delay: 200 }}
+          <Animated.View
+            entering={FadeIn.delay(200).duration(600)}
             className="rounded-3xl overflow-hidden border border-white/10"
           >
             <BlurView intensity={20} tint="dark" className="p-7 bg-white/5">
@@ -113,20 +107,18 @@ export default function LoginScreen() {
                 <ArrowRight size={14} color="#a1a1aa" />
               </TouchableOpacity>
             </BlurView>
-          </MotiView>
+          </Animated.View>
         </View>
 
         {/* Footer */}
-        <MotiView
-          from={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ type: 'timing', duration: 600, delay: 300 }}
+        <Animated.View
+          entering={FadeIn.delay(300).duration(600)}
           className="items-center"
         >
           <Text className="text-zinc-500 text-[11px] font-medium tracking-wide">
-            Apple-Native Architecture & Supabase RLS
+            Campus-Cram Architecture & Supabase RLS
           </Text>
-        </MotiView>
+        </Animated.View>
       </SafeAreaView>
 
       {/* Interactive Academic Onboarding & Personalization Wizard */}

@@ -66,6 +66,18 @@ const TARGET_GPAS = [
   '4.00 (Upper Division)',
 ];
 
+const showAppAlert = (title: string, message: string) => {
+  if (Platform.OS === 'web') {
+    if (typeof window !== 'undefined' && window.alert) {
+      window.alert(`${title}\n\n${message}`);
+    } else {
+      console.warn(`[Alert] ${title}: ${message}`);
+    }
+  } else {
+    Alert.alert(title, message);
+  }
+};
+
 export function AcademicSetupModal({
   visible,
   onClose,
@@ -74,13 +86,14 @@ export function AcademicSetupModal({
 }: AcademicSetupModalProps) {
   const currentProfile = studyStore.getStudentProfile();
 
-  const [fullName, setFullName] = useState(currentProfile?.fullName || '');
+  const [fullName, setFullName] = useState(currentProfile?.fullName || 'Chioma Adebayo');
   const [university, setUniversity] = useState(
     currentProfile?.university || 'Federal University of Technology, Minna (FUTMINNA)'
   );
   const [department, setDepartment] = useState(currentProfile?.department || 'Computer Science');
   const [academicLevel, setAcademicLevel] = useState(currentProfile?.academicLevel || '300 Level');
   const [targetGpa, setTargetGpa] = useState(currentProfile?.targetGpa || '4.85');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Enrolled courses state
   const [courses, setCourses] = useState<EnrolledCourse[]>(
@@ -98,13 +111,14 @@ export function AcademicSetupModal({
   const [newCourseTitle, setNewCourseTitle] = useState('');
 
   const handleAddCourse = () => {
+    setErrorMessage(null);
     if (!newCourseCode.trim() || !newCourseTitle.trim()) {
-      Alert.alert('Incomplete Course', 'Please enter both the course code (e.g. CSC 301) and title.');
+      showAppAlert('Incomplete Course', 'Please enter both the course code (e.g. CSC 301) and title.');
       return;
     }
     const cleanCode = newCourseCode.trim().toUpperCase();
     if (courses.some((c) => c.code.toUpperCase() === cleanCode)) {
-      Alert.alert('Duplicate Course', `Course ${cleanCode} is already in your study deck.`);
+      showAppAlert('Duplicate Course', `Course ${cleanCode} is already in your study deck.`);
       return;
     }
     setCourses([
@@ -116,14 +130,16 @@ export function AcademicSetupModal({
   };
 
   const handleRemoveCourse = (code: string) => {
+    setErrorMessage(null);
     if (courses.length <= 1) {
-      Alert.alert('At Least One Course', 'Please maintain at least one course in your cram curriculum.');
+      showAppAlert('At Least One Course', 'Please maintain at least one course in your cram curriculum.');
       return;
     }
     setCourses(courses.filter((c) => c.code !== code));
   };
 
   const handleAutoSuggest = () => {
+    setErrorMessage(null);
     if (department.includes('Software')) {
       setCourses([
         { code: 'SEN 301', title: 'Software Engineering Architecture', creditUnits: 3 },
@@ -155,30 +171,28 @@ export function AcademicSetupModal({
   };
 
   const handleSubmit = () => {
-    if (!fullName.trim()) {
-      Alert.alert('Name Required', 'Please enter your student name to personalize your workspace.');
-      return;
-    }
-    if (!university.trim()) {
-      Alert.alert('University Required', 'Please specify your university or institution.');
-      return;
-    }
-    if (!department.trim()) {
-      Alert.alert('Department Required', 'Please enter your department or major.');
-      return;
-    }
-    if (courses.length === 0) {
-      Alert.alert('Courses Required', 'Please add at least one course to your cram deck.');
-      return;
-    }
+    setErrorMessage(null);
+
+    const cleanName = fullName.trim() || 'Student Scholar';
+    const cleanUni = university.trim() || 'Federal University of Technology, Minna (FUTMINNA)';
+    const cleanDept = department.trim() || 'Computer Science';
+    const activeCourses =
+      courses.length > 0
+        ? courses
+        : [
+            { code: 'CSC 301', title: 'Operating Systems & Concurrency', creditUnits: 3 },
+            { code: 'SEN 301', title: 'Software Engineering Architecture', creditUnits: 3 },
+            { code: 'MTH 301', title: 'Numerical Methods & Analysis', creditUnits: 3 },
+            { code: 'CSC 305', title: 'Database Systems & SQL', creditUnits: 3 },
+          ];
 
     const newProfile: StudentProfile = {
-      fullName: fullName.trim(),
-      university: university.trim(),
-      department: department.trim(),
-      academicLevel,
-      targetGpa: targetGpa.split(' ')[0] || targetGpa,
-      enrolledCourses: courses,
+      fullName: cleanName,
+      university: cleanUni,
+      department: cleanDept,
+      academicLevel: academicLevel || '300 Level',
+      targetGpa: targetGpa.split(' ')[0] || targetGpa || '4.85',
+      enrolledCourses: activeCourses,
       hasCompletedOnboarding: true,
     };
 
@@ -201,7 +215,7 @@ export function AcademicSetupModal({
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         className="flex-1 bg-black/75 justify-end"
       >
-        <BlurView intensity={35} tint="dark" className="absolute inset-0" />
+        <BlurView intensity={35} tint="dark" pointerEvents="none" className="absolute inset-0" />
 
         <Animated.View
           entering={FadeInUp.duration(450).springify().damping(14)}
@@ -470,10 +484,22 @@ export function AcademicSetupModal({
               </View>
             </View>
 
+            {/* Validation / Notice Message if any */}
+            {errorMessage ? (
+              <View className="mb-4 bg-red-500/15 border border-red-500/30 p-3 rounded-xl flex-row items-center gap-2">
+                <Text className="text-red-300 text-xs font-semibold flex-1">
+                  {errorMessage}
+                </Text>
+              </View>
+            ) : null}
+
             {/* Launch CTA */}
             <TouchableOpacity
               onPress={handleSubmit}
               activeOpacity={0.85}
+              role="button"
+              accessibilityRole="button"
+              style={{ cursor: 'pointer' } as any}
               className="w-full bg-[#ffa200] py-4 rounded-2xl flex-row items-center justify-center gap-2 shadow-lg shadow-[#ffa200]/25"
             >
               <Sparkles size={18} color="#001524" />

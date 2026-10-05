@@ -17,7 +17,7 @@ export default function LoginScreen() {
     if (!profile || !profile.hasCompletedOnboarding) {
       setSetupModalVisible(true);
     } else {
-      router.push('/(tabs)/home');
+      router.replace('/(tabs)/home');
     }
   };
 
@@ -128,7 +128,7 @@ export default function LoginScreen() {
         onClose={() => setSetupModalVisible(false)}
         onSuccess={(_profile) => {
           setSetupModalVisible(false);
-          router.push('/(tabs)/home');
+          router.replace('/(tabs)/home');
         }}
       />
     </View>

@@ -32,3 +32,9 @@ files.forEach((file) => {
     }
   }
 });
+
+const rootVercelJson = path.join(__dirname, '..', 'vercel.json');
+if (fs.existsSync(rootVercelJson)) {
+  fs.copyFileSync(rootVercelJson, path.join(distDir, 'vercel.json'));
+  console.log('[Vercel] Copied vercel.json into dist/vercel.json');
+}

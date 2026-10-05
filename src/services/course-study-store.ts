@@ -691,6 +691,21 @@ class CourseStudyStore {
     this.cramDecks.set('CSC 305', CSC305_CRAM_DECK);
 
     // No pre-seeded past questions: courses only become trained when authentic past questions are uploaded via the AI Trainer
+
+    // Hydrate student profile from web localStorage if present
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        const saved = localStorage.getItem('campus_cram_student_profile');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && typeof parsed === 'object') {
+            this.studentProfile = parsed;
+          }
+        }
+      } catch (e) {
+        // ignore web storage errors
+      }
+    }
   }
 
   // -------------------------------------------------------------------------
@@ -761,6 +776,14 @@ Curriculum scope includes core theory, practice problems, past examination forma
       });
     }
 
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        localStorage.setItem('campus_cram_student_profile', JSON.stringify(this.studentProfile));
+      } catch (e) {
+        // ignore web storage errors
+      }
+    }
+
     this.notifyListeners();
   }
 
@@ -774,6 +797,13 @@ Curriculum scope includes core theory, practice problems, past examination forma
 
   resetStudentProfile(): void {
     this.studentProfile = null;
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        localStorage.removeItem('campus_cram_student_profile');
+      } catch (e) {
+        // ignore web storage errors
+      }
+    }
     this.notifyListeners();
   }
 

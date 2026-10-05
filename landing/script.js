@@ -457,4 +457,66 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.style.transform = 'translateY(20px)';
     }, 4500);
   }
+
+  // --------------------------------------------------------------------------
+  // 6. Mobile Navigation Drawer Toggle & Smooth Anchor Handling
+  // --------------------------------------------------------------------------
+  const mobileToggle = document.getElementById('mobileMenuToggle');
+  const mobileDrawer = document.getElementById('mobileNavDrawer');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (mobileToggle && mobileDrawer) {
+    function toggleMobileMenu(forceState) {
+      const isOpen = forceState !== undefined ? forceState : !mobileDrawer.classList.contains('active');
+      if (isOpen) {
+        mobileDrawer.classList.add('active');
+        mobileToggle.classList.add('active');
+        mobileToggle.setAttribute('aria-expanded', 'true');
+        mobileDrawer.setAttribute('aria-hidden', 'false');
+      } else {
+        mobileDrawer.classList.remove('active');
+        mobileToggle.classList.remove('active');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        mobileDrawer.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMobileMenu();
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        toggleMobileMenu(false);
+        const targetId = link.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (targetId === '#install-guide') {
+              targetEl.classList.remove('section-highlight');
+              void targetEl.offsetWidth;
+              targetEl.classList.add('section-highlight');
+            }
+          }
+        }
+      });
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (mobileDrawer.classList.contains('active') && !mobileDrawer.contains(e.target) && !mobileToggle.contains(e.target)) {
+        toggleMobileMenu(false);
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileDrawer.classList.contains('active')) {
+        toggleMobileMenu(false);
+      }
+    });
+  }
 });

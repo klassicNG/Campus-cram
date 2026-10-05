@@ -118,7 +118,7 @@
       </ul>
 
       <div class="nav-actions">
-        <a href="https://github.com/klassicNG/Campus-cram/releases/latest" class="btn btn-primary btn-sm download-apk-btn">
+        <a href="https://github.com/klassicNG/Campus-cram/releases/latest" class="btn btn-primary btn-sm download-apk-btn desktop-only-btn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
@@ -126,8 +126,32 @@
           </svg>
           <span>Download APK</span>
         </a>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
       </div>
     </nav>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-links">
+        <li><a href="#features" class="mobile-nav-link">Features</a></li>
+        <li><a href="#theory-hall" class="mobile-nav-link">Theory Hall</a></li>
+        <li><a href="#cram-sheets" class="mobile-nav-link">Cram Sheets</a></li>
+        <li><a href="#install-guide" class="mobile-nav-link">Android Guide</a></li>
+        <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+      </ul>
+      <div class="mobile-nav-actions">
+        <a href="https://github.com/klassicNG/Campus-cram/releases/latest" class="btn btn-primary btn-sm download-apk-btn" style="width:100%; justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8.1 12 8.1s-3.5902.3116-5.1368.8497L4.8409 5.4467a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.152 5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/>
+          </svg>
+          <span>Download Android APK (~45MB)</span>
+        </a>
+      </div>
+    </div>
   </header>
 
   <!-- Hero Section -->
@@ -485,13 +509,13 @@
   <!-- iOS / iPhone Users Callout -->
   <section class="section-wrapper" style="padding-top:0;">
     <div class="container">
-      <div class="glass-panel" style="padding:40px; border-radius:28px; background:linear-gradient(135deg, rgba(0,210,255,0.08) 0%, rgba(14,20,32,0.85) 100%); border-color:rgba(0,210,255,0.25);">
+      <div class="glass-panel ios-callout-card">
         <div style="display:flex; flex-direction:column; gap:16px; max-width:800px; margin-inline:auto; text-align:center;">
           <div class="glass-pill" style="margin-inline:auto; border-color:rgba(0,210,255,0.3); background:rgba(0,210,255,0.1);">
             <span style="color:#00d2ff; font-weight:700;">🍎 iPhone & iPad Scholars</span>
           </div>
-          <h3 style="font-size:1.85rem; font-weight:800; color:#ffffff;">No App Store Fees. Runs Natively via Safari PWA.</h3>
-          <p style="color:#94a3b8; font-size:1rem; line-height:1.6;">
+          <h3 class="ios-callout-title">No App Store Fees. Runs Natively via Safari PWA.</h3>
+          <p class="ios-callout-desc">
             iOS users don't need to sideload anything. Open the web app in Safari, tap the <b>Share icon</b>, and tap <b>"Add to Home Screen"</b>. The app runs full-screen with native animations and gestures.
           </p>
           <div style="display:flex; justify-content:center; gap:12px; margin-top:8px;">
@@ -593,7 +617,7 @@
         <p class="cta-desc">
           Join thousands of students across FUTMINNA, UNILAG, UI, and other institutions preparing smarter, faster, and under authentic exam hall conditions.
         </p>
-        <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+        <div class="cta-btn-group">
           <a href="https://github.com/klassicNG/Campus-cram/releases/latest" class="btn btn-primary btn-lg download-apk-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8.1 12 8.1s-3.5902.3116-5.1368.8497L4.8409 5.4467a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.152 5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/>

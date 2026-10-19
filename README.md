@@ -1,57 +1,101 @@
-https://campuscram.vercel.app/
-# Welcome to your Expo app 👋
+# Campus Cram
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**A mobile-first examination preparation and study management platform built for university students.**
 
-## Get started
+[![Official Landing Page & APK](https://img.shields.io/badge/📱_Official_Landing_Page_&_APK-campuscram.vercel.app-000000?style=for-the-badge)](https://campuscram.vercel.app/)
+[![Web Preview (Beta)](https://img.shields.io/badge/🌐_Web_Preview_(Beta)-campus--cram.vercel.app-334155?style=for-the-badge)](https://campus-cram.vercel.app/)
 
-1. Install dependencies
+> **Platform Note:** Campus Cram is engineered **mobile-first** for Android using React Native and Expo. For the complete, intended user experience and native performance, download the Android APK via the [Official Landing Page](https://campuscram.vercel.app/). The browser-based [Web Companion](https://campus-cram.vercel.app/) is currently maintained as an experimental **beta preview**.
 
+---
+
+## Overview
+
+**Campus Cram** helps university students organize their study schedules, simulate computer-based tests (CBT), and revise efficiently on the go. 
+
+### Product Evolution: From Hackathon MVP (v1) to Mobile-First Production (v2)
+Campus Cram is the second-generation architectural evolution of **[SmartCBT](https://github.com/klassicNG/smart-cbt)**—an AI-powered web prototype originally developed in Next.js and Google Gemma AI for the *Build with Gemma: AI for Africa Hackathon*. 
+
+Post-hackathon user testing revealed a clear practical constraint: university students primarily revise on mobile phones during commutes, in hostels, or between lectures, often under unstable network conditions where desktop-oriented web layouts feel restrictive. To solve this, the platform was re-architected from the ground up into **Campus Cram** using **React Native, Expo, and TypeScript**, prioritizing native mobile ergonomics, touch responsiveness, and low-latency performance.
+
+---
+
+## Key Features
+
+- **Timed CBT Exam Simulations:** Realistic practice sessions with deterministic countdown timers, instant question navigation, and automated scoring.
+- **Structured Study Management:** Tools to organize course material, track revision progress, and stay consistent ahead of university exams.
+- **Mobile-First Ergonomics:** Built with native gesture handling, clean typography, and distraction-free dark/light UI patterns tailored for small screens.
+- **Cross-Platform Foundation:** Powered by a unified React Native & Expo codebase with an accompanying web preview.
+
+---
+
+## Tech Stack & Architecture
+
+- **Framework:** [React Native](https://reactnative.dev/) & [Expo](https://expo.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/) (strict interfaces for assessment payloads, session state, and navigation)
+- **Styling & UI:** React Native StyleSheet / Flexbox primitives optimized for mobile viewports
+- **Deployment:** Expo Application Services (EAS) for Android APK distribution & [Vercel](https://vercel.com/) for the landing page and beta web build
+
+### Engineering Highlights
+1. **Modular Component Architecture:** Reusable, strictly typed UI primitives that separate visual presentation from assessment state logic.
+2. **Predictable State Transitions:** Decoupled exam-timing and scoring calculations from UI rendering cycles to eliminate unnecessary re-renders during active timed sessions.
+3. **Pragmatic Iteration:** Transitioned validated concepts from a v1 LLM web prototype ([SmartCBT](https://smart-cbt-ten.vercel.app/)) into a dedicated mobile companion ([Campus Cram](https://campuscram.vercel.app/)).
+
+---
+
+## Getting Started (Local Development)
+
+### Prerequisites
+- **Node.js** (v18+ recommended)
+- **npm** or **yarn**
+- **Expo Go** app installed on your physical Android/iOS device (or an Android Emulator)
+
+### Installation
+
+1. **Clone the repository:**
    ```bash
-   npm install
-   ```
+   git clone [https://github.com/klassicNG/Campus-cram.git](https://github.com/klassicNG/Campus-cram.git)
+   cd Campus-cram
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. **Install dependencies:**
+```bash
+npm install
 
-### Other setup steps
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
 
-## Learn more
+3. **Start the Expo development server:**
+```bash
+npx expo start
 
-To learn more about developing your project with Expo, look at the following resources:
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
+4. **Run the application:**
+* **Mobile (Recommended):** Scan the QR code in the terminal using the **Expo Go** app on your phone, or press `a` to launch in an Android Emulator.
+* **Web (Beta Preview):** Press `w` in the terminal to open the experimental web build in your browser.
 
-Join our community of developers creating universal apps.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+---
+
+## Related Links
+
+* **Official APK Download & Showcase:** [https://campuscram.vercel.app/](https://campuscram.vercel.app/)
+* **Web Preview (Beta):** [https://campus-cram.vercel.app/](https://campus-cram.vercel.app/)
+* **v1 Hackathon Prototype (SmartCBT):** [GitHub Repo](https://github.com/klassicNG/smart-cbt) | [Live Demo](https://smart-cbt-ten.vercel.app/)
+
+---
+
+## Author
+
+**Victor God'spower Nkem** (`klassicNG`)
+
+Full-Stack & Mobile Developer
+
+[GitHub](https://github.com/klassicNG) • [LinkedIn](https://www.linkedin.com/in/victor-god-s-power-08691333b)
+
+```
+
